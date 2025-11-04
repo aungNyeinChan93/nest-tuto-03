@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
@@ -9,7 +9,7 @@ export class CustomersController {
   constructor(private readonly customersService: CustomersService) { }
 
   @Post()
-  create(@Body() createCustomerDto: CreateCustomerDto) {
+  create(@Body(ValidationPipe) createCustomerDto: CreateCustomerDto) {
     return this.customersService.create(createCustomerDto);
   }
 
@@ -29,8 +29,8 @@ export class CustomersController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.customersService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.customersService.remove(id);
   }
 
   @Get('greet/:id')

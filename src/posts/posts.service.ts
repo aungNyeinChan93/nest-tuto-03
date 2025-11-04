@@ -2,11 +2,12 @@
 
 import { Injectable } from '@nestjs/common';
 import { type Post as PostInterface } from './interfaces/posts.interface';
+import { posts } from './utils/post.entity';
 
 @Injectable()
 export class PostsService {
 
-    private posts: PostInterface[] = [];
+    private posts: PostInterface[] = posts;
 
     findAll(): PostInterface[] {
         return this.posts;

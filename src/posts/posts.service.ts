@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { type Post as PostInterface } from './interfaces/posts.interface';
 import { posts } from './utils/post.entity';
 
@@ -25,6 +25,13 @@ export class PostsService {
     create(post: PostInterface): PostInterface[] {
         const newPost = { id: this.posts?.length + 1, ...post }
         this.posts.push(newPost);
+        return this.posts;
+    }
+
+    update(id: number, updatePost: PostInterface) {
+        const post = this.posts?.find(post => post?.id === id)
+        if (!post) throw new NotFoundException('Post not found!')
+        this.posts = this.posts?.map(post => post.id === id ? { ...post, ...updatePost } : post)
         return this.posts;
     }
 

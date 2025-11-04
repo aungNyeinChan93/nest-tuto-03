@@ -2,7 +2,7 @@
 
 import { type Post as PostInterface } from './interfaces/posts.interface';
 import { PostsService } from './posts.service';
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 
 @Controller('posts')
 export class PostsController {
@@ -27,6 +27,11 @@ export class PostsController {
     @Post()
     createPost(@Body() post: PostInterface) {
         return this.postsService.create(post)
+    }
+
+    @Put(':id')
+    updatePost(@Param('id', ParseIntPipe) id: number, @Body() post: PostInterface) {
+        return this.postsService.update(id, post)
     }
 
 }

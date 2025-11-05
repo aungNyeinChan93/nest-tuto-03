@@ -8,9 +8,10 @@ import { CustomersModule } from './customers/customers.module';
 import { PostsModule } from './posts/posts.module';
 import { ImagesModule } from './images/images.module';
 import { ProductsModule } from './products/products.module';
+import { AuthorsModule } from './authors/authors.module';
 
 @Module({
-  imports: [TestsModule, CustomersModule, PostsModule, ImagesModule, ProductsModule],
+  imports: [TestsModule, CustomersModule, PostsModule, ImagesModule, ProductsModule, AuthorsModule],
   controllers: [AppController],
   providers: [AppService],
 })
